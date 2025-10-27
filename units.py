@@ -68,8 +68,15 @@ class Units:
                 parts.append(f"{symbol}^{exp}" if exp != 1 else symbol)
         return ".".join(parts) if parts else "dimensionless"
     def __hash__(self):
-        return (2**self.length)*(3**self.mass)*(5**self.time)*(7**self.electric_current)*(11**self.temperature)*(13**self.luminous_intensity)*(17**self.amount_of_substance)
-
+        return hash((
+            self.length,
+            self.mass,
+            self.time,
+            self.electric_current,
+            self.temperature,
+            self.luminous_intensity,
+            self.amount_of_substance
+        ))
 
 COMPOSITE_UNITS = {
     "N": Units(mass=1, length=1, time=-2),                      # Newton
