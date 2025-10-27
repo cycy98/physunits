@@ -11,3 +11,5 @@ Prefixes:
 - Added a `__eq__` and `__hash__` method
 Implemented `__hash__` in Units
 Changed `to_pretty_string(, tenth=True)` to have better conversion
+### 0.1.3
+Changed `__hash__` in Units from integers to hashed-tuples
