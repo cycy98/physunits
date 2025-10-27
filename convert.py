@@ -93,7 +93,7 @@ def best_prefix(quantity: Quantity, tenth: bool | None = None) -> Quantity:
         # Find prefix that makes number between 1 and 1000
         for symbol, factor in PREFIXES.items():
             value_scaled = abs_val / float(factor)
-            if 1 <= value_scaled < 1000:
+            if 1 <= value_scaled < 10:
                 new_val = quantity.value * (float(quantity.prefix.factor) / float(factor))
                 return Quantity(new_val, Prefix(symbol), quantity.units)
     else:
@@ -124,3 +124,4 @@ def to_pretty_string(quantity: Quantity, max_precision: int = 4, tenth: bool | N
     unit_name = q_best.units.composite_name() or str(q_best.units)
     prefix_str = q_best.prefix.symbol
     return f"{val} {prefix_str}{unit_name}"
+
