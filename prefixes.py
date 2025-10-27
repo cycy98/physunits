@@ -9,7 +9,7 @@ PREFIXES_THOUSANDS = {
     "z": Fraction(1, 10**21), "y": Fraction(1, 10**24), "r": Fraction(1, 10**27),
     "q": Fraction(1, 10**30)
 }
-
+PREFIXES_THOUSANDS["u"] = PREFIXES_THOUSANDS["µ"]
 PREFIXES_TENTHS = {
     'da': 10**1, 'h': 10**2, 'd': 10**-1, 'c': 10**-2, '': 1
 }
@@ -44,3 +44,14 @@ class Prefix:
 
     def __repr__(self):
         return self.symbol
+    def __eq__(self, other):
+        return isinstance(other, Prefix) and self.factor == other.factor
+
+    def __hash__(self):
+        return hash(self.factor)
+
+def get_prefix_factor(symbol: str):
+    try:
+        return PREFIXES[symbol]
+    except KeyError:
+        raise ValueError(f"Unknown prefix: {symbol}")
