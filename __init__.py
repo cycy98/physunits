@@ -1,5 +1,5 @@
 from .units import Units, COMPOSITE_UNITS
-from .prefixes import Prefix, PREFIXES
+from .prefixes import Prefix, PREFIXES, add_prefix
 from .quantity import Quantity
 from .convert import to_pretty_string, best_prefix, convert_unit
 from .physics import (
@@ -29,7 +29,7 @@ from .constants import (
 )
 
 __all__ = [
-    "Units", "COMPOSITE_UNITS", "Prefix", "PREFIXES", "Quantity",
+    "Units", "COMPOSITE_UNITS", "Prefix", "PREFIXES", "add_prefix", "Quantity",
     "parse_units", "to_pretty_string", "best_prefix", "convert_unit",
     "speed_of_light", "planck_constant", "planck_bar_constant", "standard_gravity",
     "gravitational_constant", "electron_charge", "elementary_charge",

@@ -118,6 +118,13 @@ print(E)
 - `Quantity` arithmetic checks unit compatibility for operations like addition/subtraction.
 - `parse_units` supports `*`, `/`, `^` and recognizes composite symbols and base SI symbols.
 
+## Unit Conversions
+`physunits` supports conversions between SI and non-SI units, including:
+- Length: m, cm, mm, km, Å, ly, pc, in, ft, mi
+- Energy: J, kJ, MJ, cal, kcal, eV, erg, Wh, kWh
+- Pressure: Pa, kPa, MPa, bar, atm, mmHg, torr, psi
+- And more! See `convert.py` for the full list.
+
 ## Tests and quick verification
 
 Run a quick import check:
@@ -131,7 +138,3 @@ Consider adding unit tests (pytest) that validate arithmetic, conversions and th
 ## Contributing
 
 PRs welcome. If you add features, please include tests and doc examples.
-
-## License
-
-Add a LICENSE file or include license text as appropriate for your project.

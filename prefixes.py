@@ -1,39 +1,38 @@
 from fractions import Fraction
 
-# Define metric prefixes (powers of 10)
+# Default prefix dictionaries
+from fractions import Fraction
+
 PREFIXES_THOUSANDS = {
-    "Q": 10**30, "R": 10**27, "Y": 10**24, "Z": 10**21, "E": 10**18,
-    "P": 10**15, "T": 10**12, "G": 10**9, "M": 10**6, "k": 10**3, "": 1,
+    "Q": Fraction(10**30), "R": Fraction(10**27), "Y": Fraction(10**24), "Z": Fraction(10**21),
+    "E": Fraction(10**18), "P": Fraction(10**15), "T": Fraction(10**12), "G": Fraction(10**9),
+    "M": Fraction(10**6), "k": Fraction(10**3), "": Fraction(1),
     "m": Fraction(1, 10**3), "µ": Fraction(1, 10**6), "n": Fraction(1, 10**9),
     "p": Fraction(1, 10**12), "f": Fraction(1, 10**15), "a": Fraction(1, 10**18),
     "z": Fraction(1, 10**21), "y": Fraction(1, 10**24), "r": Fraction(1, 10**27),
     "q": Fraction(1, 10**30)
 }
 PREFIXES_THOUSANDS["u"] = PREFIXES_THOUSANDS["µ"]
+
 PREFIXES_TENTHS = {
-    'da': 10**1, 'h': 10**2, 'd': 10**-1, 'c': 10**-2, '': 1
+    'da': Fraction(10**1), 'h': Fraction(10**2), 'd': Fraction(1,10**1),
+    'c': Fraction(1,10**2), '': Fraction(1)
 }
 
 def valid_combo(t, th):
-    """Filter out invalid combinations."""
-    # never allow deci + atto (would form "da")
-    if t == "d" and th == "a":
-        return False
-    # special case: allow "hz" (hecto + zepto)
-    if t == "h" and th == "z":
-        return True
-
     vt, vth = PREFIXES_TENTHS[t], PREFIXES_THOUSANDS[th]
-    # allow only same-kind combinations (>1 or <1 or ==1)
     return (vt > 1 and vth > 1) or (vt < 1 and vth < 1) or vt == 1 or vth == 1
 
-# Build combined prefix dictionary
-PREFIXES = {
-    t + th: Fraction(PREFIXES_TENTHS[t]) * Fraction(PREFIXES_THOUSANDS[th])
-    for th in PREFIXES_THOUSANDS
-    for t in PREFIXES_TENTHS
-    if valid_combo(t, th)
-}
+def build_prefix_dict():
+    """Rebuild combined PREFIXES dictionary.""" 
+    return {
+        th + t: Fraction(PREFIXES_TENTHS[t]) * Fraction(PREFIXES_THOUSANDS[th])
+        for th in PREFIXES_THOUSANDS
+        for t in PREFIXES_TENTHS
+        if valid_combo(t, th)
+    }
+
+PREFIXES = build_prefix_dict()
 
 class Prefix:
     def __init__(self, symbol: str):
@@ -44,6 +43,7 @@ class Prefix:
 
     def __repr__(self):
         return self.symbol
+
     def __eq__(self, other):
         return isinstance(other, Prefix) and self.factor == other.factor
 
@@ -55,3 +55,29 @@ def get_prefix_factor(symbol: str):
         return PREFIXES[symbol]
     except KeyError:
         raise ValueError(f"Unknown prefix: {symbol}")
+
+def add_prefix(symbol: str, factor):
+    """
+    Add a user-defined prefix.
+    Automatically categorizes it as 'thousands' or 'tenths'
+    and rebuilds the global PREFIXES dictionary.
+    """
+    global PREFIXES
+
+    # Normalize factor
+    factor = Fraction(factor)
+
+    # Prevent duplicates
+    if symbol in PREFIXES_THOUSANDS or symbol in PREFIXES_TENTHS:
+        raise ValueError(f"Prefix '{symbol}' already exists.")
+
+    # Decide which group to place it in
+    if factor >= 1:
+        PREFIXES_THOUSANDS[symbol] = factor
+    elif factor < 1:
+        PREFIXES_THOUSANDS[symbol] = factor  # could also separate by type if you prefer
+
+    # Rebuild combined dictionary
+    PREFIXES = build_prefix_dict()
+
+    return f"Prefix '{symbol}' added successfully with factor {factor}"
