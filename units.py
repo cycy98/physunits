@@ -50,7 +50,7 @@ class Units:
 
     def __repr__(self):
         name = self.composite_name()
-        if UNIT_PRIORITY[name] >= 2:
+        if UNIT_PRIORITY.get(name,1) >= 2:
             return name
         parts = []
         for symbol, exp in zip(
