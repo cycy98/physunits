@@ -1,7 +1,7 @@
 from .units import Units, COMPOSITE_UNITS
 from .prefixes import Prefix, PREFIXES, add_prefix
-from .quantity import Quantity
-from .convert import to_pretty_string, best_prefix, convert_unit
+from .quantity import Quantity, parse_units
+from .convert import to_pretty_string, best_prefix, convert_unit, register_conversion, make_units
 from .physics import (
     speed, acceleration, force, momentum, impulse, kinetic_energy,
     potential_energy, mechanical_energy, work, power, energy_from_power,
@@ -18,7 +18,6 @@ from .physics import (
     bernoulli_pressure, flow_rate, continuity_equation,
 
 )
-from .quantity import parse_units
 from .constants import (
     speed_of_light, planck_constant, planck_bar_constant, standard_gravity,
     gravitational_constant, electron_charge, elementary_charge, electron_mass,
@@ -30,7 +29,9 @@ from .constants import (
 
 __all__ = [
     "Units", "COMPOSITE_UNITS", "Prefix", "PREFIXES", "add_prefix", "Quantity",
-    "parse_units", "to_pretty_string", "best_prefix", "convert_unit",
+    "parse_units", "to_pretty_string", "best_prefix", "convert_unit", "make_units",
+    "register_conversion",
+    
     "speed_of_light", "planck_constant", "planck_bar_constant", "standard_gravity",
     "gravitational_constant", "electron_charge", "elementary_charge",
     "electron_mass", "proton_mass", "neutron_mass", "rydberg_constant",
@@ -38,6 +39,7 @@ __all__ = [
     "vacuum_permittivity", "vacuum_permeability", "coulomb_constant",
     "faraday_constant", "boltzmann_constant", "gas_constant",
     "stefan_boltzmann_constant", "boltzmann_energy_at_room_temp", "avogadro_constant",
+    
     # basic mechanics
     "speed", "acceleration", "force", "momentum", "impulse", "kinetic_energy",
     "potential_energy", "mechanical_energy", "work", "power", "energy_from_power",
