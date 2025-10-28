@@ -1,5 +1,4 @@
 from fractions import Fraction
-from .convert import register_conversion
 
 class Units:
     """Represents SI base unit exponents: m, kg, s, A, K, mol, cd."""
@@ -208,14 +207,3 @@ UNIT_PRIORITY = {
     "mph": 1,
     "knot": 1,
 }
-def make_units(unit_dimensions: Units, repr: str, value: float | int | Fraction, priority: None | int = None):
-    """Make Units
-    unit_dimensions are the unit dimensions
-    repr is the representation
-    value is the ratio between your unit and the SI combination
-    priority is used when printing, for the moment, if you do not have the value of 1, please don't make it more than 1
-    """
-    if not priority:
-        priority = 1
-    register_conversion(str(unit_dimensions), repr, value)
-    UNIT_PRIORITY[repr] = priority
