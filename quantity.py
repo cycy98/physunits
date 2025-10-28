@@ -5,7 +5,7 @@ from .units import Units, COMPOSITE_UNITS
 
 def parse_units(expr: str) -> Units:
     """Parse compound expressions like 'N*m/s^2' or 'kg*m^2/s^3'."""
-    expr = expr.replace("·", "*").replace(" ", "")
+    expr = expr.replace("·", "*").replace(" ", "").replace(r"//", r"/")
     tokens = re.split(r"([*/])", expr)
     result = Units()
     op = "*"
@@ -36,7 +36,7 @@ def parse_units(expr: str) -> Units:
 
 class Quantity:
     def __init__(self, value, prefix: Prefix, units: Units):
-        self.value = float(value)
+        self.value = value
         self.prefix = prefix
         self.units = units
 
@@ -92,9 +92,8 @@ class Quantity:
         return self
 
     def __repr__(self):
-        name = self.units.composite_name()
         prefix = str(self.prefix)
-        return f"{self.value} {prefix}{name or self.units}"
+        return f"{self.value} {prefix}{str(self.units)}"
     # Comparison operators
     def __eq__(self, other):
         return (self.value * float(self.prefix.factor) == other.value * float(other.prefix.factor)
