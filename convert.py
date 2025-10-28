@@ -6,7 +6,7 @@ Works directly with Quantity objects.
 import math
 from .quantity import Quantity, parse_units
 from .prefixes import PREFIXES_THOUSANDS, Prefix, PREFIXES
-from .units import Units, COMPOSITE_UNITS
+from .units import COMPOSITE_UNITS, Units, UNIT_PRIORITY
 from fractions import Fraction
 
 # === Prefix conversion ===
@@ -190,10 +190,20 @@ def convert_unit(quantity: Quantity, target_unit_symbol: str) -> Quantity:
                  else parse_units(target_unit_symbol))
     return Quantity(new_value, Prefix(""), new_units)
 
-# === Automatic scaling to best prefix ===
-def register_conversion(source_unit: str, target_unit: str, factor: float | Fraction):
+def register_conversion(source_unit: str, target_unit: str, factor: float | int | Fraction):
     _CONVERSIONS[(source_unit, target_unit)] = factor
     _CONVERSIONS[(target_unit, source_unit)] = 1 / factor
+def make_units(unit_dimensions: Units, repr: str, value: float | int | Fraction, priority: None | int = None):
+    """Make Units
+    unit_dimensions are the unit dimensions
+    repr is the representation
+    value is the ratio between your unit and the SI combination
+    priority is used when printing, for the moment, if you do not have the value of 1, please don't make it more than 1
+    """
+    if not priority:
+        priority = 1
+    register_conversion(str(unit_dimensions), repr, value)
+    UNIT_PRIORITY[repr] = priority
 
 # Precompute exponent-to-prefix (negative for the scale)
 _EXPONENT_TO_PREFIX_THOUSANDS = {
@@ -204,6 +214,8 @@ _EXPONENT_TO_PREFIX = {
     -int(math.log10(float(factor))): symbol
     for symbol, factor in PREFIXES.items() if factor != 0
 }
+
+# === Automatic scaling to best prefix ===
 
 def best_prefix(quantity: Quantity, tenth: bool | None = None) -> Quantity:
     tenth = bool(tenth)
