@@ -204,6 +204,7 @@ def make_units(unit_dimensions: Units, repr: str, value: float | int | Fraction,
         priority = 1
     register_conversion(str(unit_dimensions), repr, value)
     UNIT_PRIORITY[repr] = priority
+    COMPOSITE_UNITS[repr] = unit_dimensions
 
 # Precompute exponent-to-prefix (negative for the scale)
 _EXPONENT_TO_PREFIX_THOUSANDS = {
