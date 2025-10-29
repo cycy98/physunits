@@ -1,7 +1,5 @@
 from fractions import Fraction
-
-# Default prefix dictionaries
-from fractions import Fraction
+from math import log10
 
 PREFIXES_THOUSANDS = {
     "Q": Fraction(10**30), "R": Fraction(10**27), "Y": Fraction(10**24), "Z": Fraction(10**21),
@@ -59,11 +57,9 @@ def get_prefix_factor(symbol: str):
 def add_prefix(symbol: str, factor):
     """
     Add a user-defined prefix.
-    Automatically categorizes it as 'thousands' or 'tenths'
-    and rebuilds the global PREFIXES dictionary.
+    rebuilds the global PREFIXES dictionary.
     """
     global PREFIXES
-
     # Normalize factor
     factor = Fraction(factor)
 
@@ -71,13 +67,10 @@ def add_prefix(symbol: str, factor):
     if symbol in PREFIXES_THOUSANDS or symbol in PREFIXES_TENTHS:
         raise ValueError(f"Prefix '{symbol}' already exists.")
 
-    # Decide which group to place it in
-    if factor >= 1:
-        PREFIXES_THOUSANDS[symbol] = factor
-    elif factor < 1:
-        PREFIXES_THOUSANDS[symbol] = factor  # could also separate by type if you prefer
+    PREFIXES_THOUSANDS[symbol] = factor
 
     # Rebuild combined dictionary
-    PREFIXES = build_prefix_dict()
+    PREFIXES.clear()
+    PREFIXES.update(build_prefix_dict())
 
     return f"Prefix '{symbol}' added successfully with factor {factor}"
