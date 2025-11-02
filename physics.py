@@ -3,10 +3,10 @@ Physics helper functions for physunits.
 Each function operates on `Quantity` objects and preserves dimensional consistency.
 """
 
-from .quantity import Quantity
-from .prefixes import Prefix
-from .units import Units
-from .constants import (
+from quantity import Quantity
+from prefixes import Prefix
+from units import Units
+from constants import (
     standard_gravity, speed_of_light, boltzmann_constant, gas_constant,
     gravitational_constant, planck_constant
 )
