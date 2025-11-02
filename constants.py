@@ -3,9 +3,9 @@ Physical constants for the physunits package.
 All constants are represented as `Quantity` objects with correct SI dimensions.
 """
 
-from .quantity import Quantity
-from .prefixes import Prefix
-from .units import Units
+from quantity import Quantity
+from prefixes import Prefix
+from units import Units
 
 # === Fundamental Constants ===
 speed_of_light = Quantity(299792458, Prefix(""), Units(length=1, time=-1))
