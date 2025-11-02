@@ -229,6 +229,8 @@ def update_exponent_to_prefixes():
 
 # === Automatic scaling to best prefix ===
 
+# === Automatic scaling to best prefix ===
+
 def best_prefix(quantity: Quantity, tenth: bool | None = None) -> Quantity:
     tenth = bool(tenth)
     abs_val = (quantity.value * quantity.prefix.factor
