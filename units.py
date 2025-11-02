@@ -50,7 +50,7 @@ class Units:
 
     def __repr__(self):
         name = self.composite_name()
-        if name:
+        if UNIT_PRIORITY.get(name,1) >= 2:
             return name
         parts = []
         for symbol, exp in zip(
@@ -73,7 +73,7 @@ class Units:
         ))
 
     def composite_name(self):
-        best = None
+        best = ""
         best_prio = 0
         for name, unit in COMPOSITE_UNITS.items():
             if self == unit:
