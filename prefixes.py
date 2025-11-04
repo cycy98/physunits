@@ -1,5 +1,4 @@
 from fractions import Fraction
-from math import log10
 
 PREFIXES_THOUSANDS = {
     "Q": Fraction(10**30), "R": Fraction(10**27), "Y": Fraction(10**24), "Z": Fraction(10**21),
@@ -68,7 +67,7 @@ def add_prefix(symbol: str, factor):
         raise ValueError(f"Prefix '{symbol}' already exists.")
 
     PREFIXES_THOUSANDS[symbol] = factor
-    from convert import update_exponent_to_prefixes
+    from .convert import update_exponent_to_prefixes
     # Rebuild combined dictionary
     PREFIXES.clear()
     PREFIXES.update(build_prefix_dict())

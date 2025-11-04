@@ -25,7 +25,7 @@ Or copy the `physunits` package into your project.
 
 ## Quick start
 
-Basic example — compute speed from distance and time:
+Basic example, compute speed from distance and time:
 
 ```python
 from physunits import Quantity, Prefix, Units, speed
@@ -36,7 +36,7 @@ distance = Quantity(1000, Prefix(""), Units(length=1))
 time = Quantity(100, Prefix(""), Units(time=1))
 
 velocity = speed(distance, time)
-print(velocity)  # shows a Quantity representing 10.0 m/s
+print(velocity)  # 10.0 m.s^-1
 ```
 
 Parsing a compound unit expression into the internal `Units` representation:
@@ -45,7 +45,7 @@ Parsing a compound unit expression into the internal `Units` representation:
 from physunits import parse_units
 
 u = parse_units('N*m/s^2')
-print(u)  # Units object (may resolve to composite names like J, N, etc.)
+print(u)  # m^2.kg.s^-4 (Units object)
 ```
 
 Converting prefixes on a `Quantity`:
@@ -125,15 +125,25 @@ print(E)
 - Pressure: Pa, kPa, MPa, bar, atm, mmHg, torr, psi
 - And more! See `convert.py` for the full list.
 
-## Tests and quick verification
+## Customization
 
-Run a quick import check:
-
-```powershell
-python -c "import physunits; print(len(physunits.__all__))"
+You can add new units, but this is very early and will have further improvements.
+```python
+from physunits import *
+make_units(Units(1,0,-2),"av",1,3) # av stands for acceleration value
+acc = Quantity(5, Prefix("k"), Units(1,0,-2))
+print(acc) # Output: 5 kav```
 ```
 
-Consider adding unit tests (pytest) that validate arithmetic, conversions and the physics helper outputs.
+You can also add you own prefixes
+
+```python
+from physunits import *
+add_prefix("X",10**33)
+d = Quantity(10**34, Prefix(""), Units(length=1))
+best_prefix(d) # This lines prints the value with the closest prefix factor to the quantity
+# Output: "10.0 Xm"
+```
 
 ## Contributing
 

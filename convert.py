@@ -4,9 +4,9 @@ Works directly with Quantity objects.
 """
 
 import math
-from quantity import Quantity, parse_units
-from prefixes import PREFIXES_THOUSANDS, Prefix, PREFIXES
-from units import COMPOSITE_UNITS, Units, UNIT_PRIORITY
+from .quantity import Quantity, parse_units
+from .prefixes import PREFIXES_THOUSANDS, Prefix, PREFIXES
+from .units import COMPOSITE_UNITS, Units, UNIT_PRIORITY
 from fractions import Fraction
 
 # === Prefix conversion ===
@@ -29,7 +29,7 @@ def convert_prefix(quantity: Quantity, target_prefix_str: str) -> Quantity:
 
 _CONVERSIONS = {
     # Energy
-    ("J", "eV"): Fraction(1, 1602176634) * 10**10,  # Joule to electronvolt
+    ("J", "eV"): Fraction(1, 1602176634) * 10**10,  # Joule to electron-volt
     ("eV", "J"): Fraction(1602176634, 10**19),
     ("J", "kJ"): Fraction(1, 1000),
     ("kJ", "J"): 1000,
@@ -226,8 +226,6 @@ def update_exponent_to_prefixes():
     _EXPONENT_TO_PREFIX.clear()
     _EXPONENT_TO_PREFIX_THOUSANDS.update(compute_mapping(PREFIXES_THOUSANDS))
     _EXPONENT_TO_PREFIX.update(compute_mapping(PREFIXES))
-
-# === Automatic scaling to best prefix ===
 
 # === Automatic scaling to best prefix ===
 

@@ -1,6 +1,5 @@
 import re
-from fractions import Fraction
-from prefixes import Prefix, PREFIXES
+from .prefixes import Prefix, PREFIXES
 from units import Units, COMPOSITE_UNITS
 
 def parse_units(expr: str) -> Units:
@@ -87,7 +86,6 @@ class Quantity:
             raise ValueError(f"Cannot convert {self.units} to {new_units}")
         for p in PREFIXES:
             if unit_expr.startswith(p):
-                target_prefix = Prefix(p)
                 return self.convert(p)
         return self
 

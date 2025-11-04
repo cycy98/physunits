@@ -1,5 +1,3 @@
-from fractions import Fraction
-
 class Units:
     """Represents SI base unit exponents: m, kg, s, A, K, mol, cd."""
     def __init__(self, length=0, mass=0, time=0, electric_current=0,
