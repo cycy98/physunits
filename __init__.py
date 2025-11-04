@@ -1,8 +1,8 @@
-from .units import Units, COMPOSITE_UNITS
-from .prefixes import Prefix, PREFIXES, add_prefix
-from .quantity import Quantity, parse_units
-from .convert import to_pretty_string, best_prefix, convert_unit, register_conversion, make_units
-from .physics import (
+from units import Units, COMPOSITE_UNITS
+from prefixes import Prefix, PREFIXES, add_prefix
+from quantity import Quantity, parse_units
+from convert import to_pretty_string, best_prefix, convert_unit, register_conversion, make_units
+from physics import (
     speed, acceleration, force, momentum, impulse, kinetic_energy,
     potential_energy, mechanical_energy, work, power, energy_from_power,
     torque, angular_momentum, rotational_kinetic_energy,
@@ -18,7 +18,7 @@ from .physics import (
     bernoulli_pressure, flow_rate, continuity_equation,
 
 )
-from .constants import (
+from constants import (
     speed_of_light, planck_constant, planck_bar_constant, standard_gravity,
     gravitational_constant, electron_charge, elementary_charge, electron_mass,
     proton_mass, neutron_mass, rydberg_constant, rydberg_energy, rydberg_frequency,

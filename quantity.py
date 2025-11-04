@@ -1,7 +1,7 @@
 import re
 from fractions import Fraction
-from .prefixes import Prefix, PREFIXES
-from .units import Units, COMPOSITE_UNITS
+from prefixes import Prefix, PREFIXES
+from units import Units, COMPOSITE_UNITS
 
 def parse_units(expr: str) -> Units:
     """Parse compound expressions like 'N*m/s^2' or 'kg*m^2/s^3'."""
