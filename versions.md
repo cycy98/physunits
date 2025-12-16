@@ -22,3 +22,5 @@ Made `best_prefix` loopless
 Changed order in the `PREFIXES` of thousand and tenths to avoid confusion with 10^-17 (been previously da and hz, now is ad)
 Added the support for custom prefixes
 Fixed floating-point imprecision in `convert.py`.
+### 0.2.1
+Added `convert_prefix` to the \_\_init\_\_ file.
