@@ -1,7 +1,7 @@
 from .units import Units, COMPOSITE_UNITS
 from .prefixes import Prefix, PREFIXES, add_prefix
 from .quantity import Quantity, parse_units
-from .convert import to_pretty_string, best_prefix, convert_unit, register_conversion, make_units
+from .convert import to_pretty_string, best_prefix, convert_unit, convert_prefix, register_conversion, make_units
 from .physics import (
     speed, acceleration, force, momentum, impulse, kinetic_energy,
     potential_energy, mechanical_energy, work, power, energy_from_power,
@@ -29,7 +29,7 @@ from .constants import (
 
 __all__ = [
     "Units", "COMPOSITE_UNITS", "Prefix", "PREFIXES", "add_prefix", "Quantity",
-    "parse_units", "to_pretty_string", "best_prefix", "convert_unit", "make_units",
+    "parse_units", "to_pretty_string", "best_prefix", "convert_unit", "convert_prefix", "make_units",
     "register_conversion",
     
     "speed_of_light", "planck_constant", "planck_bar_constant", "standard_gravity",
