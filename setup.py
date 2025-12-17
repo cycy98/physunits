@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="physunits",
-    version="0.2.0",
+    version="0.2.3",
     author="ChessGuyyy",
     description="A lightweight dimensional analysis and physics unit system",
     packages=find_packages(),
