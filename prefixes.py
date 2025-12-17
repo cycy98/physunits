@@ -88,7 +88,7 @@ def get_prefix_factor(symbol: str):
     except KeyError:
         raise ValueError(f"Unknown prefix: {symbol}")
 
-def add_prefix(symbol: str, factor):
+def add_prefix(symbol: str, factor, inverse_symbol: str | None = None):
     """
     Add a user-defined prefix.
     rebuilds the global PREFIXES dictionary.
@@ -100,8 +100,11 @@ def add_prefix(symbol: str, factor):
     # Prevent duplicates
     if symbol in PREFIXES_THOUSANDS or symbol in PREFIXES_TENTHS:
         raise ValueError(f"Prefix '{symbol}' already exists.")
-
+    if not (inverse_symbol is None):
+        if inverse_symbol in PREFIXES_THOUSANDS or inverse_symbol in PREFIXES_TENTHS:
+            raise ValueError(f"Prefix '{inverse_symbol}' already exists.")
     PREFIXES_THOUSANDS[symbol] = factor
+    if not (inverse_symbol is None): PREFIXES_THOUSANDS[inverse_symbol] = Fraction(1, factor)
     from .convert import update_exponent_to_prefixes
     # Rebuild combined dictionary
     PREFIXES.clear()
