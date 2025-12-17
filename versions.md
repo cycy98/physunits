@@ -23,4 +23,6 @@ Changed order in the `PREFIXES` of thousand and tenths to avoid confusion with 1
 Added the support for custom prefixes
 Fixed floating-point imprecision in `convert.py`.
 ### 0.2.1
+Added `convert_prefix` to the \_\_init\_\_ file.
+### 0.2.2
 Fixed errors when multiplying linked to prefix
