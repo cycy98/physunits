@@ -46,6 +46,41 @@ class Prefix:
 
     def __hash__(self):
         return hash(self.factor)
+    
+    def __mul__(self, other):
+        if not isinstance(other, Prefix):
+            return NotImplemented
+
+        product_factor = self.factor * other.factor
+
+        # Find an existing prefix with this factor
+        for symbol, factor in PREFIXES.items():
+            if factor == product_factor:
+                return Prefix(symbol)
+
+        raise ValueError(
+            f"No prefix exists for factor {product_factor} "
+            f"({self.symbol} * {other.symbol})"
+        )
+    def __truediv__(self, other):
+        if not isinstance(other, Prefix):
+            return NotImplemented
+
+        if other.factor == 0:
+            raise ZeroDivisionError("Cannot divide by a zero-factor prefix")
+
+        quotient_factor = self.factor / other.factor
+
+        # Find an existing prefix with this factor
+        for symbol, factor in PREFIXES.items():
+            if factor == quotient_factor:
+                return Prefix(symbol)
+
+        raise ValueError(
+            f"No prefix exists for factor {quotient_factor} "
+            f"({self.symbol} / {other.symbol})"
+        )
+
 
 def get_prefix_factor(symbol: str):
     try:

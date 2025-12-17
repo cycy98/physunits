@@ -54,7 +54,7 @@ class Quantity:
 
     def __mul__(self, other):
         if isinstance(other, Quantity):
-            return Quantity(self.value * other.value, Prefix(""), self.units * other.units)
+            return Quantity(self.value * other.value, self.prefix * other.prefix, self.units * other.units)
         return Quantity(self.value * other, self.prefix, self.units)
 
     def __rmul__(self, other):
@@ -62,10 +62,10 @@ class Quantity:
 
     def __truediv__(self, other):
         if isinstance(other, Quantity):
-            return Quantity(self.value / other.value, Prefix(""), self.units / other.units)
+            return Quantity(self.value / other.value, self.prefix / other.prefix, self.units / other.units)
         return Quantity(self.value / other, self.prefix, self.units)
     def __rtruediv__(self, other):
-        return Quantity(other / self.value, Prefix(""), Units() / self.units)
+        return Quantity(other / self.value, other.prefix / self.prefix, Units() / self.units)
 
     def __pow__(self, power):
         return Quantity(self.value ** power, Prefix(""), self.units ** power)
